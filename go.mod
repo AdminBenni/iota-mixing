@@ -1,4 +1,4 @@
-module github.com/adminbenni/iota-mixing
+module github.com/AdminBenni/iota-mixing
 
 go 1.23.3
 

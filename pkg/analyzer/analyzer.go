@@ -10,7 +10,7 @@ import (
 	"golang.org/x/tools/go/analysis/passes/inspect"
 	"golang.org/x/tools/go/ast/inspector"
 
-	"github.com/adminbenni/iota-mixing/pkg/analyzer/flags"
+	"github.com/AdminBenni/iota-mixing/pkg/analyzer/flags"
 )
 
 func GetIotaMixingAnalyzer() *analysis.Analyzer {

@@ -5,8 +5,8 @@ import (
 
 	"golang.org/x/tools/go/analysis/analysistest"
 
-	"github.com/adminbenni/iota-mixing/pkg/analyzer"
-	"github.com/adminbenni/iota-mixing/pkg/analyzer/flags"
+	"github.com/AdminBenni/iota-mixing/pkg/analyzer"
+	"github.com/AdminBenni/iota-mixing/pkg/analyzer/flags"
 )
 
 func TestAnalyzerPerBlock(t *testing.T) {
