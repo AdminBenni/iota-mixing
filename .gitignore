@@ -1,0 +1,5 @@
+# Dependency directories
+vendor/
+
+# JetBrains IDE project files
+.idea/
