@@ -11,9 +11,13 @@ const (
 )
 
 var (
-	ReportIndividualFlag *string
+	reportIndividualFlag *string //nolint:gochecknoglobals // only used in this file, not too plussed
 )
 
 func SetupFlags(flags *flag.FlagSet) {
-	ReportIndividualFlag = flags.String(ReportIndividualFlagName, FalseString, reportIndividualFlagUsage)
+	reportIndividualFlag = flags.String(ReportIndividualFlagName, FalseString, reportIndividualFlagUsage)
+}
+
+func ReportIndividualFlag() string {
+	return *reportIndividualFlag
 }

@@ -1,0 +1,13 @@
+linters:
+  enable-all: true
+  disable:
+    - depguard # not needed for this repo
+    - exhaustruct # makes structs less readable
+    - gofumpt # too opinionated
+    - varnamelen # too opinionated
+    - gci # too opinionated
+    - exportloopref # deprecated, replaced by `copyloopvar`
+
+linters-settings:
+  lll:
+    line-length: 160 # more sane to me

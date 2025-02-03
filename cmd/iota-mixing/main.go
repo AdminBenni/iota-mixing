@@ -3,8 +3,8 @@ package main
 import (
 	"golang.org/x/tools/go/analysis/singlechecker"
 
-	"github.com/AdminBenni/iota-mixing/pkg/analyzer"
-	"github.com/AdminBenni/iota-mixing/pkg/analyzer/flags"
+	"github.com/adminbenni/iota-mixing/pkg/analyzer"
+	"github.com/adminbenni/iota-mixing/pkg/analyzer/flags"
 )
 
 func main() {

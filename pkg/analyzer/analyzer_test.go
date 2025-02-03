@@ -5,11 +5,13 @@ import (
 
 	"golang.org/x/tools/go/analysis/analysistest"
 
-	"github.com/AdminBenni/iota-mixing/pkg/analyzer"
-	"github.com/AdminBenni/iota-mixing/pkg/analyzer/flags"
+	"github.com/adminbenni/iota-mixing/pkg/analyzer"
+	"github.com/adminbenni/iota-mixing/pkg/analyzer/flags"
 )
 
 func TestAnalyzerPerBlock(t *testing.T) {
+	t.Parallel()
+
 	iotaMixingAnalyzer := analyzer.GetIotaMixingAnalyzer()
 
 	flags.SetupFlags(&iotaMixingAnalyzer.Flags)
@@ -24,6 +26,8 @@ func TestAnalyzerPerBlock(t *testing.T) {
 }
 
 func TestAnalyzerPerIndividual(t *testing.T) {
+	t.Parallel()
+
 	iotaMixingAnalyzer := analyzer.GetIotaMixingAnalyzer()
 
 	flags.SetupFlags(&iotaMixingAnalyzer.Flags)

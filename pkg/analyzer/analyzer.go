@@ -1,15 +1,16 @@
 package analyzer
 
 import (
-	"fmt"
-	"github.com/AdminBenni/iota-mixing/pkg/analyzer/flags"
 	"go/ast"
 	"go/token"
+	"log"
+	"strings"
+
 	"golang.org/x/tools/go/analysis"
 	"golang.org/x/tools/go/analysis/passes/inspect"
 	"golang.org/x/tools/go/ast/inspector"
-	"log"
-	"strings"
+
+	"github.com/adminbenni/iota-mixing/pkg/analyzer/flags"
 )
 
 func GetIotaMixingAnalyzer() *analysis.Analyzer {
@@ -22,7 +23,7 @@ func GetIotaMixingAnalyzer() *analysis.Analyzer {
 }
 
 func run(pass *analysis.Pass) (interface{}, error) {
-	ASTInspector := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
+	ASTInspector := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector) //nolint:forcetypeassert // will always be correct type
 
 	// we only need to check Generic Declarations
 	nodeFilter := []ast.Node{
@@ -31,11 +32,11 @@ func run(pass *analysis.Pass) (interface{}, error) {
 
 	ASTInspector.Preorder(nodeFilter, func(node ast.Node) { checkGenericDeclaration(node, pass) })
 
-	return nil, nil
+	return interface{}(nil), nil
 }
 
 func checkGenericDeclaration(node ast.Node, pass *analysis.Pass) {
-	decl := node.(*ast.GenDecl)
+	decl := node.(*ast.GenDecl) //nolint:forcetypeassert // filtered for this node, will always be this type
 
 	if decl.Tok != token.CONST {
 		return
@@ -61,21 +62,27 @@ func checkConstDeclaration(decl *ast.GenDecl, pass *analysis.Pass) {
 
 	// there was an iota, now depending on the report-individual flag we must either
 	// report the const block or all regular valued specs that are mixing with the iota
-	switch *flags.ReportIndividualFlag {
+	switch flags.ReportIndividualFlag() {
 	case flags.TrueString:
 		for _, value := range valued {
 			pass.Reportf(
 				value.Pos(),
-				fmt.Sprintf("%s is a const with r-val in same const block as iota. keep iotas in separate const blocks", getName(value)),
+				"%s is a const with r-val in same const block as iota. keep iotas in separate const blocks",
+				getName(value),
 			)
 		}
-	default:
-		log.Printf("warning: unsupported value '%s' for flag %s, assuming value 'false'.", *flags.ReportIndividualFlag, flags.ReportIndividualFlagName)
+	default: //nolint:gocritic // default logs error and falls through to "false" case, simplest in this order
+		log.Printf(
+			"warning: unsupported value '%s' for flag %s, assuming value 'false'.",
+			flags.ReportIndividualFlag(), flags.ReportIndividualFlagName,
+		)
+
 		fallthrough
 	case flags.FalseString:
 		if len(valued) == 0 {
 			return
 		}
+
 		pass.Reportf(decl.Pos(), "iota mixing. keep iotas in separate blocks to consts with r-val")
 	}
 }
@@ -98,11 +105,14 @@ func checkValueSpec(spec *ast.ValueSpec, iotaFound bool, valued []*ast.ValueSpec
 
 func getName(spec *ast.ValueSpec) string {
 	sb := strings.Builder{}
+
 	for i, ident := range spec.Names {
 		sb.WriteString(ident.Name)
+
 		if i < len(spec.Names)-1 {
 			sb.WriteString(", ")
 		}
 	}
+
 	return sb.String()
 }
