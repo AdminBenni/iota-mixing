@@ -23,12 +23,12 @@ jobs:
           mkdir -p build
           
           # Build for Linux
-          GOOS=linux GOARCH=amd64 go build -o build/iotamixing-linux-amd64
-          GOOS=linux GOARCH=arm64 go build -o build/iotamixing-linux-arm64
+          GOOS=linux GOARCH=amd64 go build -o build/iotamixing-linux-amd64 ./cmd/iota-mixing/
+          GOOS=linux GOARCH=arm64 go build -o build/iotamixing-linux-arm64 ./cmd/iota-mixing/
           
           # Build for Windows
-          GOOS=windows GOARCH=amd64 go build -o build/iotamixing-windows-amd64.exe
-          GOOS=windows GOARCH=arm64 go build -o build/iotamixing-windows-arm64.exe
+          GOOS=windows GOARCH=amd64 go build -o build/iotamixing-windows-amd64.exe ./cmd/iota-mixing/
+          GOOS=windows GOARCH=arm64 go build -o build/iotamixing-windows-arm64.exe ./cmd/iota-mixing/
 
       - name: Upload Binaries to Release
         uses: softprops/action-gh-release@v2
