@@ -40,4 +40,4 @@ jobs:
             build/iotamixing-windows-amd64.exe
             build/iotamixing-windows-arm64.exe
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_IOTAMIXING_RELEASE_TOKEN }}
