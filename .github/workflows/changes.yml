@@ -1,6 +1,6 @@
-name: Main
+name: Validate Changes
 
-# Copied from https://github.com/ldez/exptostd
+# Copied partially from https://github.com/ldez/exptostd
 
 on:
   push:
@@ -17,7 +17,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GO_VERSION: stable
-      GOLANGCI_LINT_VERSION: v1.63.4
       CGO_ENABLED: 0
 
     steps:
@@ -32,9 +31,5 @@ jobs:
           git diff --exit-code go.mod
           git diff --exit-code go.sum
 
-      # https://golangci-lint.run/usage/install#other-ci
-      - name: Install golangci-lint ${{ env.GOLANGCI_LINT_VERSION }}
-        run: curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin ${GOLANGCI_LINT_VERSION}
-
-      - name: Make
-        run: make
+      - name: Test
+        run: go test -v -cover ./...
