@@ -35,9 +35,9 @@ jobs:
         with:
           tag_name: ${{ github.event.release.tag_name }}
           files: |
-            build/myapp-linux-amd64
-            build/myapp-linux-arm64
-            build/myapp-windows-amd64.exe
-            build/myapp-windows-arm64.exe
+            build/iotamixing-linux-amd64
+            build/iotamixing-linux-arm64
+            build/iotamixing-windows-amd64.exe
+            build/iotamixing-windows-arm64.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
