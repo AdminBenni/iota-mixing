@@ -1,4 +1,4 @@
-package per_individual
+package per_block
 
 const ( // want "iota mixing. keep iotas in separate blocks to consts with r-val"
 	InvalidIotaDeclBetweenZero = iota

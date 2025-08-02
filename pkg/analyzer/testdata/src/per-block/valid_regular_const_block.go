@@ -1,4 +1,4 @@
-package per_individual
+package per_block
 
 const (
 	ValidRegularSomething = "something"
